@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!-- saved from url=(0041)http://pagseguro.spr.org.br/socio/api/v2/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Documentação da API</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</head>
+
+<body data-feedly-mini="yes" cz-shortcut-listen="true" style="">
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                <h2>Como usar os métodos da API</h2>
+                <hr>
+            </div>
+
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="font-weight:bold;">Buscar um sócio por E-mail e Data de Nascimento</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <h4>Exemplo de envio usando o método $.ajax do jQuery</h4>
+                        <pre>                            <code>
+// O Token de acesso é único e é necessário para realizar consultas na API
+$.ajax({
+  method: 'POST',
+  url: 'https://pagseguro.spr.org.br/socio/api/v2/integracao.php',
+  headers: { Token: 'tsfTRQoLDhuMubdAS8wAWkY5vUEsODuI' },
+  data: {
+      method: 'getByDTNascEmail',
+      dtnascimento: '1970-01-01',
+      email: 'ejsalgado@globo.com'
+  }
+}).done(function(res){
+  console.log(res)
+}, function(err){
+  console.log(err.responseJSON)
+})
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="font-weight:bold;">Buscar um sócio pelo CPF</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <h4>Exemplo de envio usando o método $.ajax do jQuery</h4>
+                        <pre>                            <code>
+// O Token de acesso é único e é necessário para realizar consultas na API
+$.ajax({
+  method: 'POST',
+  url: 'https://pagseguro.spr.org.br/socio/api/v2/integracao.php',
+  headers: { Token: 'tsfTRQoLDhuMubdAS8wAWkY5vUEsODuI' },
+  data: {
+      method: 'getByCpf',
+      cpf: '11130737721'
+  }
+}).done(function(res){
+  console.log(res)
+}, function(err){
+  console.log(err.responseJSON)
+})
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="font-weight:bold;">Buscar um sócio pelo RA</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <h4>Exemplo de envio usando o método $.ajax do jQuery</h4>
+                        <pre>                            <code>
+// O Token de acesso é único e é necessário para realizar consultas na API
+$.ajax({
+  method: 'POST',
+  url: 'https://pagseguro.spr.org.br/socio/api/v2/integracao.php',
+  headers: { Token: 'tsfTRQoLDhuMubdAS8wAWkY5vUEsODuI' },
+  data: {
+      method: 'getByRa',
+      ra: 'faa_0011'
+  }
+}).done(function(res){
+  console.log(res)
+}, function(err){
+  console.log(err.responseJSON)
+})
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title" style="font-weight:bold;">Criar/Alterar Sócio</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <h4>Exemplo de envio usando o método $.ajax do jQuery</h4>
+                        <pre>                            <code>
+// O Token de acesso é único e é necessário para realizar consultas na API
+$.ajax({
+  method: 'POST',
+  url: 'https://pagseguro.spr.org.br/socio/api/v2/integracao.php',
+  headers: { Token: 'tsfTRQoLDhuMubdAS8wAWkY5vUEsODuI' },
+  data: {
+    method: 'save',
+    jsondata: JSON.stringify({
+        CPF: "111.222.333-44",
+        N_REG_ACAD: "",
+        CATEGORIA: "",
+        NOME: "TESTE DE CADASTRO",
+        DTNASCIMENTO: "1988-11-20",
+        SEXO: "f",
+        ESTADOCIVIL: "1",
+        EMAIL: "teste@teste.com",
+        NACIONALIDADE: "brasileira",
+        RG_NUMERO: "11.234.567.8",
+        RG_DT_EMISSAO: "",
+        RG_EXPEDIDOR: "DIC",
+        RG_UF: "RJ",
+        TIPORUA: "1",
+        ENDERECO: "Carnaúba",
+        CEP: "22250145",
+        NUMERO: "96",
+        TIPOBAIRRO: "",
+        BAIRRO: "Botafogo",
+        COMPLEMENTO: "",
+        CIDADE: "Rio de Janeiro",
+        ESTADO: "RJ",
+        PAIS: "Brasil",
+        TELEFONE: "1111111111",
+        CELULAR: "22222222222",
+        ESTADONATAL: "RJ",
+        NATURALIDADE: "Rio de Janeiro",
+        HOSPITAL: "HOSPITAL TESTE",
+        TELEFONE_HOSPITAL: "4444444444",
+        EMAIL_CONSULTORIO: "",
+        ESPECIALIDADE: "01",
+        SUBESPECIALIDADE1: "11",
+        SUBESPECIALIDADE2: "16",
+        SUBESPECIALIDADE3: "23",
+        TECNOLOGIA_UTILIZADA1: "02",
+        TECNOLOGIA_UTILIZADA2: "04",
+        TECNOLOGIA_UTILIZADA3: "03",
+        CLASSIFICACAO: "07",
+        SUBCLASSIFICACAO: "05",
+        CRM: "77777-4",
+        CRM_UF: "RJ",
+        RA: "47858",
+        CODIGO: "25405"
+    })
+  }
+}).done(function(res){
+  console.log(res)
+}, function(err){
+  console.log(err.responseJSON)
+})
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script
+    src="https://code.jquery.com/jquery-3.5.0.js"
+    integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+    crossorigin="anonymous"></script>
+
+
+    <script>
+        $(function () {
+
+        });
+    </script>
+
+
+
+<div id="feedly-mini" title="feedly Mini tookit"></div></body></html>
