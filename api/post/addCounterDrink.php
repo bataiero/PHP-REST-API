@@ -26,15 +26,15 @@
 
 
 
-  $post->addCounterDrink();
+  //$post->addCounterDrink();
 
-//   // Update post
-//   if($post->addCounterDrink()) {
-//     echo json_encode(
-//       array('message' => 'Post Updated')
-//     );
-//   } else {
-//     echo json_encode(
-//       array('message' => 'Post Not Updated')
-//     );
-//   }
+  // Update post
+  if($post->addCounterDrink()) {
+    echo json_encode(
+      array('message' => 'Add Success!')
+    );
+  } else {
+    echo json_encode(
+      array('message' => 'Post Not Updated')
+    );
+  }

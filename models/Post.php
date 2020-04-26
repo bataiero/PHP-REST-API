@@ -232,24 +232,6 @@
 
 
     public function addCounterDrink() {
-    //   // Create query
-    //   $query = 'SELECT drink_counter,iduser FROM ' . $this->table.' WHERE iduser = ? LIMIT 0,1';
-
-    //   // Prepare statement
-    //   $stmt = $this->conn->prepare($query);
-
-    //   // Bind ID
-    //   $stmt->bindParam(1, $this->iduser);
-
-    //   // Execute query
-    //   $stmt->execute();
-
-    //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    //   // Set properties
-    //   $this->drink_counter = $row['drink_counter'];
-
-    //  echo  $this->drink_counter;
 
       // Create query
       $query = 'SELECT drink_counter,iduser FROM ' . $this->table.' WHERE iduser = :id LIMIT 0,1';
@@ -273,7 +255,7 @@
 
         $this->drink_counter = $row['drink_counter'];
 
-        echo  $this->drink_counter;
+        
 
 
                 // Create query
@@ -294,27 +276,72 @@
                 $stmt->bindParam(':ml', $this->ml);
 
                 // Execute query
-                if($stmt->execute()) {
-                return true;
-                }
+                $stmt->execute();
 
-                // Print error if something goes wrong
-                printf("Error: %s.\n", $stmt->error);
 
-                return false;
+                      // Create query
+                      $query = 'INSERT INTO drink_counter_log SET iduserdc = :id, drink_counterdc = :ml';
+          
 
+                      // Prepare statement
+                      $stmt2 = $this->conn->prepare($query);
+
+                      // Clean data
+                      $this->id = htmlspecialchars(strip_tags($this->id));
+                      $this->ml = htmlspecialchars(strip_tags($this->ml));
+
+                      // Bind data
+                      $stmt2->bindParam(':id', $this->id);
+                      $stmt2->bindParam(':ml', $this->ml);
+                      $stmt2->execute();
+
+                      // Execute query
+                      // if($stmt->execute()) {
+                      //   return true;
+                      // }
+
+                      return true;
 
       }
 
-      // // Print error if something goes wrong
-      // printf("Error: %s.\n", $stmt->error);
-
-      // return false;
-
-
-
   }
 
+
+    // Get Single Post
+    public function listCounterDrink() {
+      // Create query
+      $query = 'SELECT iduserdc, drink_counterdc, created_atdc FROM drink_counter_log WHERE iduserdc = ?';
+
+      // Prepare statement
+      $stmt = $this->conn->prepare($query);
+
+      // Bind ID
+      $stmt->bindParam(1, $this->iduser);
+
+      // Execute query
+      $stmt->execute();
+
+      return $stmt;
+    }
+
+
+    // Get Single Post
+    public function listCounterDrinkRank() {
+
+      // Create query
+      $query = 'SELECT iduserdc, drink_counterdc, created_atdc FROM drink_counter_log WHERE created_atdc = ? ORDER BY drink_counterdc DESC';
+
+      // Prepare statement
+      $stmt = $this->conn->prepare($query);
+
+      // Bind ID
+      $stmt->bindParam(1, $this->hj);
+
+      // Execute query
+      $stmt->execute();
+
+      return $stmt;
+    }
 
 
 
