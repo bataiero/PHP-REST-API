@@ -21,15 +21,20 @@
 
   // Set ID to update
   $post->id = $data->id;
+  $post->ml = $data->ml;
 
 
-  // Update post
-  if($post->add()) {
-    echo json_encode(
-      array('message' => 'Post Updated')
-    );
-  } else {
-    echo json_encode(
-      array('message' => 'Post Not Updated')
-    );
-  }
+
+
+  $post->addCounterDrink();
+
+//   // Update post
+//   if($post->addCounterDrink()) {
+//     echo json_encode(
+//       array('message' => 'Post Updated')
+//     );
+//   } else {
+//     echo json_encode(
+//       array('message' => 'Post Not Updated')
+//     );
+//   }

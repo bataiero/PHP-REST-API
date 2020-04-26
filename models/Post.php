@@ -58,31 +58,31 @@
           $this->created_at = $row['created_at'];
     }
 
-   public function login() {
-     // Create query
-     $query = 'SELECT iduser, name, email, drink_counter, created_at FROM ' . $this->table.' WHERE email = ? and password = ? LIMIT 0,1';
+    public function login() {
+            // Create query
+            $query = 'SELECT iduser, name, email, drink_counter, created_at FROM ' . $this->table.' WHERE email = ? and password = ? LIMIT 0,1';
 
-     // Prepare statement
-     $stmt = $this->conn->prepare($query);
+            // Prepare statement
+            $stmt = $this->conn->prepare($query);
 
-     // Bind ID
-     $stmt->bindParam(1, $this->email);
-     $stmt->bindParam(2, $this->password);
-     // Execute query
-     $stmt->execute();
+            // Bind ID
+            $stmt->bindParam(1, $this->email);
+            $stmt->bindParam(2, $this->password);
+            // Execute query
+            $stmt->execute();
 
-     $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-     // Set properties
-     $this->iduser = $row['iduser'];
-     $this->name = $row['name'];
-     $this->email = $row['email'];
-     $this->drink_counter = $row['drink_counter'];
-     $this->created_at = $row['created_at'];
-     $this->token = md5($row['name']);
-     return $stmt;
+            // Set properties
+            $this->iduser = $row['iduser'];
+            $this->name = $row['name'];
+            $this->email = $row['email'];
+            $this->drink_counter = $row['drink_counter'];
+            $this->created_at = $row['created_at'];
+            $this->token = md5($row['name']);
+            return $stmt;
 
-    }
+      }
 
 
 
@@ -178,33 +178,143 @@
     }
     
 
-// Update Post
-public function add() {
-  // Create query
-  $query = 'UPDATE ' . $this->table . '
-                        SET drink_counter = drink_counter + 1
-                        WHERE iduser = :id';
-                        
-  // Prepare statement
-  $stmt = $this->conn->prepare($query);
+    // Update Post
+    public function add() {
+          // Create query
+          $query = 'UPDATE ' . $this->table . '
+                                SET drink_counter = drink_counter + 1
+                                WHERE iduser = :id';
+                                
+          // Prepare statement
+          $stmt = $this->conn->prepare($query);
 
-  // Clean data
+          // Clean data
 
-  $this->id = htmlspecialchars(strip_tags($this->id));
+          $this->id = htmlspecialchars(strip_tags($this->id));
 
-  // Bind data
-  $stmt->bindParam(':id', $this->id);
+          // Bind data
+          $stmt->bindParam(':id', $this->id);
 
-  // Execute query
-  if($stmt->execute()) {
-    return true;
+          // Execute query
+          if($stmt->execute()) {
+            return true;
+          }
+
+          // Print error if something goes wrong
+          printf("Error: %s.\n", $stmt->error);
+
+          return false;
+        }
+
+
+    public function getdrink() {
+        // Create query
+        $query = 'SELECT drink_counter,iduser FROM ' . $this->table.' WHERE iduser = ? LIMIT 0,1';
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind ID
+        $stmt->bindParam(1, $this->iduser);
+
+        // Execute query
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Set properties
+        $this->iduser = $row['iduser'];
+        $this->drink_counter = $row['drink_counter'];
+
+        return $stmt;
+
+    }
+
+
+    public function addCounterDrink() {
+    //   // Create query
+    //   $query = 'SELECT drink_counter,iduser FROM ' . $this->table.' WHERE iduser = ? LIMIT 0,1';
+
+    //   // Prepare statement
+    //   $stmt = $this->conn->prepare($query);
+
+    //   // Bind ID
+    //   $stmt->bindParam(1, $this->iduser);
+
+    //   // Execute query
+    //   $stmt->execute();
+
+    //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //   // Set properties
+    //   $this->drink_counter = $row['drink_counter'];
+
+    //  echo  $this->drink_counter;
+
+      // Create query
+      $query = 'SELECT drink_counter,iduser FROM ' . $this->table.' WHERE iduser = :id LIMIT 0,1';
+
+                            
+      // Prepare statement
+      $stmt = $this->conn->prepare($query);
+
+      // Clean data
+
+      $this->id = htmlspecialchars(strip_tags($this->id));
+
+      // Bind data
+      $stmt->bindParam(':id', $this->id);
+
+      // Execute query
+      if($stmt->execute()) {
+        //return true;
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $this->drink_counter = $row['drink_counter'];
+
+        echo  $this->drink_counter;
+
+
+                // Create query
+                $query = 'UPDATE ' . $this->table . '
+                SET drink_counter = drink_counter + :ml
+                WHERE iduser = :id';
+                
+                // Prepare statement
+                $stmt = $this->conn->prepare($query);
+
+                // Clean data
+
+                $this->id = htmlspecialchars(strip_tags($this->id));
+                $this->ml = htmlspecialchars(strip_tags($this->ml));
+
+                // Bind data
+                $stmt->bindParam(':id', $this->id);
+                $stmt->bindParam(':ml', $this->ml);
+
+                // Execute query
+                if($stmt->execute()) {
+                return true;
+                }
+
+                // Print error if something goes wrong
+                printf("Error: %s.\n", $stmt->error);
+
+                return false;
+
+
+      }
+
+      // // Print error if something goes wrong
+      // printf("Error: %s.\n", $stmt->error);
+
+      // return false;
+
+
+
   }
 
-  // Print error if something goes wrong
-  printf("Error: %s.\n", $stmt->error);
-
-  return false;
-}
 
 
 
